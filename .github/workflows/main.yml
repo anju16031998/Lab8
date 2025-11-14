@@ -20,7 +20,7 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
-        working-directory: ./ppinfra
+        working-directory: ./static-website-aws-typescript-1
         run: npm install
 
       - uses: pulumi/actions@v5
