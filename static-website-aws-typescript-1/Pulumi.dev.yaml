@@ -1,0 +1,5 @@
+config:
+  aws:region: us-west-2
+  static-website-aws-typescript-1:errorDocument: error.html
+  static-website-aws-typescript-1:indexDocument: index.html
+  static-website-aws-typescript-1:path: ./www

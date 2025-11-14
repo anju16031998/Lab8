@@ -1,6 +1,9 @@
 name: static-website-aws-typescript-1
 description: A TypeScript program to deploy a static website on AWS
-runtime: nodejs
+runtime:
+  name: nodejs
+  options:
+    packagemanager: npm
 config:
   pulumi:tags:
     value:
