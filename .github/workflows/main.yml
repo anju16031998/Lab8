@@ -26,7 +26,7 @@ jobs:
       - uses: pulumi/actions@v5
         with:
           command: up
-          stack-name: anju16398/static-website-aws-typescript-1/dev
+          stack-name: anju16398-org/static-website-aws-typescript-1/dev
           work-dir: ./ppinfra
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
