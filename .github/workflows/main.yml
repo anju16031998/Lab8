@@ -20,14 +20,14 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
-        working-directory: ./static-website-aws-typescript-1
+        working-directory: ./ppinfra
         run: npm install
 
       - uses: pulumi/actions@v5
         with:
           command: up
           stack-name: anju16398/static-website-aws-typescript-1/dev
-          work-dir: ./static-website-aws-typescript-1
+          work-dir: ./ppinfra
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
           # If you do not have Pulumi ESC configured then uncomment: 
