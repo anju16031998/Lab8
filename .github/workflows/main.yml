@@ -30,7 +30,8 @@ jobs:
       # 🛑 Authenticate with Pulumi Cloud via OIDC
       - name: Authenticate with Pulumi Cloud (OIDC)
         uses: pulumi/auth-actions@v1
-        with: 
+        with:
+          organization: anju16398-org 
           requested-token-type: urn:pulumi:token-type:access_token:organization
       
       # 🛑 Inject dynamic AWS credentials from ESC
