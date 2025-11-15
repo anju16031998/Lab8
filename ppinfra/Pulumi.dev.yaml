@@ -3,3 +3,6 @@ config:
   myworkshop:errorDocument: error.html
   myworkshop:indexDocument: index.html
   myworkshop:path: ./www
+environment:
+  # The full path to the ESC environment you created and configured
+  - anju16398-org/static-website-aws-typescript-1/dev-esc
