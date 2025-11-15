@@ -28,6 +28,7 @@ jobs:
           command: destroy
           stack-name: anju16398-org/static-website-aws-typescript-1/dev
           work-dir: ./ppinfra
+          args: --yes
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
           # If you do not have Pulumi ESC configured then uncomment: 
