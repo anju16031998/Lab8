@@ -38,7 +38,7 @@ jobs:
       - name: Setup ESC and Inject Secrets
         uses: pulumi/esc-action@v1
         with:
-          environment: anju16398-org/static-website-aws-typescript-1/dev-esc
+          environment: anju16398-org/static-website-aws-typescript-1dev-esc
       
       # 🛑 Deploy using dynamically sourced credentials
       - uses: pulumi/actions@v5
