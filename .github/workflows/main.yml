@@ -39,7 +39,7 @@ jobs:
       - name: Deploy Pulumi ESC stack
         working-directory: ./ppinfra 
         # ----> REPLACE "YourPulumiOrg" with your username <----
-        run: pulumi up --yes --stack "anju16398-org/static-website-aws-typescript-1/static-website-aws-typescript-1dev-esc" 
+        run: pulumi destroy --yes --stack "anju16398-org/static-website-aws-typescript-1/static-website-aws-typescript-1dev-esc" 
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
           # No AWS keys are needed! OIDC is handling authentication.
