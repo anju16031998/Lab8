@@ -37,6 +37,7 @@ jobs:
 
       # Run Pulumi using the new OIDC-aware stack
       - name: Deploy Pulumi ESC stack
+        working-directory: ./ppinfra 
         # ----> REPLACE "YourPulumiOrg" with your username <----
         run: pulumi up --yes --stack "anju16398-org/static-website-aws-typescript-1/static-website-aws-typescript-1dev-esc" 
         env:
