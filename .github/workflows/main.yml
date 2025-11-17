@@ -1,49 +1,43 @@
-name: Pulumi Deploy (OIDC/ESC)
-
 on:
   push:
     branches:
-      - main
-  workflow_dispatch:
+      - main 
 
+# Add permissions for OIDC
 permissions:
-  id-token: write 
-  contents: read
+  id-token: write # Required to get OIDC token
+  contents: read  # Required to check out code
 
 jobs:
-  pulumi-up:
-    name: pulumi-up
+  deploy-oidc:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js 18
+      # This step uses OIDC to get short-lived AWS credentials
+      - name: Configure AWS Credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          # ----> REPLACE THIS with the Role ARN you copied from AWS <----
+          role-to-assume: arn:aws:iam::002540790985:role/Pulum_role 
+          aws-region: us-west-2
+
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: '18'
 
-      - name: Install Dependencies
-        working-directory: ./ppinfra
+      - name: Install Pulumi CLI
+        uses: pulumi/actions@v5
+
+      - name: Install dependencies
         run: npm install
-      
-      # 🛑 Authenticate with Pulumi Cloud via OIDC
-      - name: Authenticate with Pulumi Cloud (OIDC)
-        uses: pulumi/auth-actions@v1
-        with:
-          organization: anju16398-org 
-          requested-token-type: urn:pulumi:token-type:access_token:organization
-      
-      # 🛑 Inject dynamic AWS credentials from ESC
-      - name: Setup ESC and Inject Secrets
-        uses: pulumi/esc-action@v1
-        with:
-          environment: anju16398-org/static-website-aws-typescript-1/static-website-aws-typescript-1dev-esc
-      # 🛑 Deploy using dynamically sourced credentials
-      - uses: pulumi/actions@v5
-        with:
-          command: up
-          stack-name: static-website-aws-typescript-1 
-          work-dir: ./ppinfra
+
+      # Run Pulumi using the new OIDC-aware stack
+      - name: Deploy Pulumi ESC stack
+        # ----> REPLACE "YourPulumiOrg" with your username <----
+        run: pulumi up --yes --stack "anju16398-org/static-website-aws-typescript-1/static-website-aws-typescript-1dev-esc" 
         env:
-          PULUMI_ACCESS_TOKEN: ${{ env.PULUMI_ACCESS_TOKEN }}
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+          # No AWS keys are needed! OIDC is handling authentication.
